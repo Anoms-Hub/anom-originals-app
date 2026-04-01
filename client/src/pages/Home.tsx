@@ -347,7 +347,7 @@ export default function Home() {
                   <a href="#" className="text-primary hover:text-secondary transition text-sm">
                     Instagram
                   </a>
-                  <a href="#" className="text-primary hover:text-secondary transition text-sm">
+                  <a href="https://www.youtube.com/@anomoriginals" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary transition text-sm">
                     YouTube
                   </a>
                 </div>

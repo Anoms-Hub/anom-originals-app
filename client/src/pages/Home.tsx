@@ -366,7 +366,7 @@ export default function Home() {
               <div>
                 <p className="text-sm text-muted-foreground mb-3 font-display">SUBSCRIBE</p>
                 <a
-                  href="https://substack.com/@anomorig"
+                  href="https://anomoriginals.substack.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono text-sm text-primary hover:text-secondary transition"

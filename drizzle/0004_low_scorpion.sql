@@ -1,0 +1,1 @@
+ALTER TABLE `products` DROP INDEX `products_design_slug_unique`;

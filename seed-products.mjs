@@ -1,82 +1,67 @@
-import { db } from './server/db.ts';
-import { products } from './drizzle/schema.ts';
+import { getDb } from './server/db.ts';
+import { products as productsTable } from './drizzle/schema.ts';
 import { v4 as uuidv4 } from 'uuid';
 
 const designs = [
-  // Self-Care Collection
-  { name: 'Cheers To Us', slug: 'cheers-to-us', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b0044f1a-d100-4f72-93df-a4eef08ba37e_7a0c8f12.jpg' },
-  { name: 'I\'ve Earned This', slug: 'ive-earned-this', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b0044f1a-d100-4f72-93df-a4eef08ba37e_7a0c8f12.jpg' },
-  { name: 'Self-Care Mode On', slug: 'self-care-mode-on', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b0044f1a-d100-4f72-93df-a4eef08ba37e_7a0c8f12.jpg' },
-  { name: 'Rest Well', slug: 'rest-well', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b0044f1a-d100-4f72-93df-a4eef08ba37e_7a0c8f12.jpg' },
-  { name: 'Still Celebrating', slug: 'still-celebrating', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b0044f1a-d100-4f72-93df-a4eef08ba37e_7a0c8f12.jpg' },
-  { name: 'Adulting Is Hard', slug: 'adulting-is-hard', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b0044f1a-d100-4f72-93df-a4eef08ba37e_7a0c8f12.jpg' },
+  // Self-Care Collection (6 designs)
+  { name: 'Cheers To Us', slug: 'cheers-to-us', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/cheers-to-us_5d2d0f30.png' },
+  { name: "I've Earned This", slug: 'ive-earned-this', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/ive-earned-this_0628cac5.png' },
+  { name: 'Self-Care Mode On', slug: 'self-care-mode-on', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/self-care-mode-on_51e0cd23.png' },
+  { name: 'Rest Well', slug: 'rest-well', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/rest-well_394353cc.png' },
+  { name: 'Still Celebrating', slug: 'still-celebrating', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/still-celebrating_3d63860a.png' },
+  { name: 'Adulting Is Hard', slug: 'adulting-is-hard', category: 'self-care', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/adulting-is-hard_7e4b1c2a.png' },
 
-  // Luxury Icons
-  { name: 'Coffee Power', slug: 'coffee-power', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b616dd74-8974-4b89-a3a4-639da92993fe_5c9d1e3b.jpg' },
-  { name: 'Rare Gem', slug: 'rare-gem', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b616dd74-8974-4b89-a3a4-639da92993fe_5c9d1e3b.jpg' },
-  { name: 'Still Royal', slug: 'still-royal', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b616dd74-8974-4b89-a3a4-639da92993fe_5c9d1e3b.jpg' },
-  { name: 'Big Heart', slug: 'big-heart', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b616dd74-8974-4b89-a3a4-639da92993fe_5c9d1e3b.jpg' },
-  { name: 'Leveling Up', slug: 'leveling-up', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b616dd74-8974-4b89-a3a4-639da92993fe_5c9d1e3b.jpg' },
-  { name: 'Daily Dose', slug: 'daily-dose', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/b616dd74-8974-4b89-a3a4-639da92993fe_5c9d1e3b.jpg' },
+  // Luxury Icons (6 designs)
+  { name: 'Coffee Power', slug: 'coffee-power', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/coffee-power_c7a1df6d.png' },
+  { name: 'Rare Gem', slug: 'rare-gem', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/rare-gem_b2199c1f.png' },
+  { name: 'Still Royal', slug: 'still-royal', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/still-royal_78c80fc5.png' },
+  { name: 'Big Heart', slug: 'big-heart', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/big-heart_8f5e3d1b.png' },
+  { name: 'Leveling Up', slug: 'leveling-up', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/leveling-up_e2a6d85e.png' },
+  { name: 'Daily Dose', slug: 'daily-dose', category: 'luxury', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/daily-dose_50c8ec8d.png' },
 
-  // Neon Power
-  { name: 'My Back Has Opinions', slug: 'my-back-has-opinions', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/bbae5994-ffd9-4f41-bc26-d64b95d3f678_8e2f4c1a.jpg' },
-  { name: 'Still Dangerous', slug: 'still-dangerous', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/bbae5994-ffd9-4f41-bc26-d64b95d3f678_8e2f4c1a.jpg' },
-  { name: 'Relentless', slug: 'relentless', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/bbae5994-ffd9-4f41-bc26-d64b95d3f678_8e2f4c1a.jpg' },
-  { name: 'Coffee: My Love Language', slug: 'coffee-my-love-language', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/bbae5994-ffd9-4f41-bc26-d64b95d3f678_8e2f4c1a.jpg' },
-  { name: 'Permission Granted', slug: 'permission-granted', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/bbae5994-ffd9-4f41-bc26-d64b95d3f678_8e2f4c1a.jpg' },
-  { name: 'Chaos Coordinator', slug: 'chaos-coordinator', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/bbae5994-ffd9-4f41-bc26-d64b95d3f678_8e2f4c1a.jpg' },
+  // Neon Power (6 designs)
+  { name: 'My Back Has Opinions', slug: 'my-back-has-opinions', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/my-back-has-opinions_54615a15.png' },
+  { name: 'Still Dangerous', slug: 'still-dangerous', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/still-dangerous_30456279.png' },
+  { name: 'Relentless', slug: 'relentless', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/relentless_ffdde3e6.png' },
+  { name: 'Coffee: My Love Language', slug: 'coffee-my-love-language', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/coffee-my-love-language_5d80bd18.png' },
+  { name: 'Permission Granted', slug: 'permission-granted', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/permission-granted_2954eb07.png' },
+  { name: 'Chaos Coordinator', slug: 'chaos-coordinator', category: 'neon-power', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/chaos-coordinator_9c3e5f2d.png' },
 
-  // Neon Vibes
-  { name: 'Laughing Through It', slug: 'laughing-through-it', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/f63e7455-f7d2-4495-b59d-f7f43241e629_2b5e8c9f.jpg' },
-  { name: 'Slay The Day', slug: 'slay-the-day', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/f63e7455-f7d2-4495-b59d-f7f43241e629_2b5e8c9f.jpg' },
-  { name: 'Tissue For Your Issues', slug: 'tissue-for-your-issues', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/f63e7455-f7d2-4495-b59d-f7f43241e629_2b5e8c9f.jpg' },
-  { name: 'Protected', slug: 'protected', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/f63e7455-f7d2-4495-b59d-f7f43241e629_2b5e8c9f.jpg' },
-  { name: 'Infinite Potential', slug: 'infinite-potential', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/f63e7455-f7d2-4495-b59d-f7f43241e629_2b5e8c9f.jpg' },
-  { name: 'Still Evolving', slug: 'still-evolving', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/f63e7455-f7d2-4495-b59d-f7f43241e629_2b5e8c9f.jpg' },
+  // Neon Vibes (6 designs)
+  { name: 'Laughing Through It', slug: 'laughing-through-it', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/laughing-through-it_7f8643ac.png' },
+  { name: 'Slay The Day', slug: 'slay-the-day', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/slay-the-day_4c4d3958.png' },
+  { name: 'Tissue For Your Issues', slug: 'tissue-for-your-issues', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/tissue-for-your-issues_2d226ae6.png' },
+  { name: 'Protected', slug: 'protected', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/protected_d099e16e.png' },
+  { name: 'Infinite Potential', slug: 'infinite-potential', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/infinite-potential_ad52c4bd.png' },
+  { name: 'Still Evolving', slug: 'still-evolving', category: 'neon-vibes', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/still-evolving_ec9ef912.png' },
 
-  // Cute Animals
-  { name: 'Work From Home Kitty', slug: 'work-from-home-kitty', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e0cc0caf-802b-4606-b7c8-67c752e01890_3d1f5e2c.jpg' },
-  { name: 'Party Puppy', slug: 'party-puppy', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e0cc0caf-802b-4606-b7c8-67c752e01890_3d1f5e2c.jpg' },
-  { name: 'Too Early Cat', slug: 'too-early-cat', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e0cc0caf-802b-4606-b7c8-67c752e01890_3d1f5e2c.jpg' },
-  { name: 'Much Wow', slug: 'much-wow', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e0cc0caf-802b-4606-b7c8-67c752e01890_3d1f5e2c.jpg' },
-  { name: 'Doomscrolling', slug: 'doomscrolling', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e0cc0caf-802b-4606-b7c8-67c752e01890_3d1f5e2c.jpg' },
-  { name: 'Magic Kitty', slug: 'magic-kitty', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e0cc0caf-802b-4606-b7c8-67c752e01890_3d1f5e2c.jpg' },
+  // Cute Animals (6 designs)
+  { name: 'Work From Home Kitty', slug: 'work-from-home-kitty', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/work-from-home-kitty_38cad53b.png' },
+  { name: 'Party Puppy', slug: 'party-puppy', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/party-puppy_35e5212f.png' },
+  { name: 'Too Early Cat', slug: 'too-early-cat', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/too-early-cat_f827eb45.png' },
+  { name: 'Much Wow', slug: 'much-wow', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/much-wow_c2777e0f.png' },
+  { name: 'Doomscrolling', slug: 'doomscrolling', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/doomscrolling_1f0f027f.png' },
+  { name: 'Magic Kitty', slug: 'magic-kitty', category: 'animals', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/magic-kitty_1cda851c.png' },
 
-  // Women's Empowerment
-  { name: 'Kiss With Intent', slug: 'kiss-with-intent', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e8f89d57-1901-4f5c-bd5a-c153c73fa37e_4c2d6f1b.jpg' },
-  { name: 'Still Got It', slug: 'still-got-it', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e8f89d57-1901-4f5c-bd5a-c153c73fa37e_4c2d6f1b.jpg' },
-  { name: 'Access Granted', slug: 'access-granted', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e8f89d57-1901-4f5c-bd5a-c153c73fa37e_4c2d6f1b.jpg' },
-  { name: 'Sparks & Bubbles', slug: 'sparks-bubbles', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e8f89d57-1901-4f5c-bd5a-c153c73fa37e_4c2d6f1b.jpg' },
-  { name: 'Late Check-Out', slug: 'late-check-out', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e8f89d57-1901-4f5c-bd5a-c153c73fa37e_4c2d6f1b.jpg' },
-  { name: 'Chemistry', slug: 'chemistry', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/e8f89d57-1901-4f5c-bd5a-c153c73fa37e_4c2d6f1b.jpg' },
+  // Women's Empowerment (6 designs)
+  { name: 'Kiss With Intent', slug: 'kiss-with-intent', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/kiss-with-intent_22977fd2.png' },
+  { name: 'Still Got It', slug: 'still-got-it', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/still-got-it_7d3ad002.png' },
+  { name: 'Access Granted', slug: 'access-granted', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/access-granted_4e7f2c1d.png' },
+  { name: 'Sparks & Bubbles', slug: 'sparks-and-bubbles', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/sparks-and-bubbles_89ea84c7.png' },
+  { name: 'Late Check-Out', slug: 'late-check-out', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/late-check-out_e172520b.png' },
+  { name: 'Chemistry', slug: 'chemistry', category: 'empowerment', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/chemistry_6e852dfd.png' },
 
-  // Bling Ideas
-  { name: 'Debugger', slug: 'debugger', category: 'tech', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/blingideas_9e3f7c2d.jpg' },
-  { name: 'NPC Energy', slug: 'npc-energy', category: 'tech', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/blingideas_9e3f7c2d.jpg' },
-  { name: 'Doomscroll', slug: 'doomscroll', category: 'tech', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/blingideas_9e3f7c2d.jpg' },
-  { name: 'Git Gud', slug: 'git-gud', category: 'tech', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/blingideas_9e3f7c2d.jpg' },
+  // Sci-Fi Characters (composite)
+  { name: 'Sci-Fi Characters', slug: 'scifi-characters', category: 'scifi', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/scifi-characters_972844b6.png' },
 
-  // Sci-Fi Characters
-  { name: 'Astronaut', slug: 'astronaut', category: 'scifi', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_6705jy6705jy6705_1f4e8c3b.png' },
-  { name: 'Robot', slug: 'robot', category: 'scifi', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_6705jy6705jy6705_1f4e8c3b.png' },
-  { name: 'Alien', slug: 'alien', category: 'scifi', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_6705jy6705jy6705_1f4e8c3b.png' },
+  // Digital Dreams (composite)
+  { name: 'Digital Dreams', slug: 'digital-dreams', category: 'digital', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/digital-dreams_f95b53c5.png' },
 
-  // Digital Dreams
-  { name: 'Pixel Gamers', slug: 'pixel-gamers', category: 'digital', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_aqxfkjaqxfkjaqxf_5d2e9a1c.png' },
-  { name: 'Gaming Beast', slug: 'gaming-beast', category: 'digital', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_aqxfkjaqxfkjaqxf_5d2e9a1c.png' },
-  { name: 'Love Swans', slug: 'love-swans', category: 'digital', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_aqxfkjaqxfkjaqxf_5d2e9a1c.png' },
-  { name: 'Pixel Angel', slug: 'pixel-angel', category: 'digital', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_aqxfkjaqxfkjaqxf_5d2e9a1c.png' },
-  { name: 'Swan Hearts', slug: 'swan-hearts', category: 'digital', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_aqxfkjaqxfkjaqxf_5d2e9a1c.png' },
-  { name: 'Tree Brain', slug: 'tree-brain', category: 'digital', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_aqxfkjaqxfkjaqxf_5d2e9a1c.png' },
-
-  // Wellness Vibes
-  { name: 'Touch Grass', slug: 'touch-grass', category: 'wellness', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_brlnh3brlnh3brln_6e3a7d2f.webp' },
-  { name: 'Chill Out', slug: 'chill-out', category: 'wellness', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_brlnh3brlnh3brln_6e3a7d2f.webp' },
-  { name: 'Creative Flow', slug: 'creative-flow', category: 'wellness', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/Gemini_Generated_Image_brlnh3brlnh3brln_6e3a7d2f.webp' },
+  // Wellness Vibes (composite)
+  { name: 'Wellness Vibes', slug: 'wellness-vibes', category: 'wellness', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/wellness-vibes_6ff46e53.webp' },
 ];
 
-const productTypes = ['tshirt', 'hoodie', 'mug', 'water_bottle', 'coffee_bottle', 'phone_case'];
+const productTypes = ['tshirt', 'hoodie', 'mug', 'water_bottle', 'coffee_bottle', 'phone_case', 'sweatshirt', 'cap'];
 
 const pricing = {
   tshirt: 20,
@@ -85,6 +70,8 @@ const pricing = {
   water_bottle: 18,
   coffee_bottle: 20,
   phone_case: 22,
+  sweatshirt: 35,
+  cap: 16,
 };
 
 const descriptions = {
@@ -94,11 +81,19 @@ const descriptions = {
   water_bottle: 'Durable water bottle with custom design',
   coffee_bottle: 'Insulated coffee bottle with unique print',
   phone_case: 'Protective phone case with premium design',
+  sweatshirt: 'Comfortable sweatshirt with custom artwork',
+  cap: 'Adjustable cap with embroidered design',
 };
 
 async function seedProducts() {
-  console.log('Starting product seeding...');
+  console.log('🌱 Starting product seeding...');
   
+  const db = await getDb();
+  if (!db) {
+    console.error('❌ Database connection failed');
+    process.exit(1);
+  }
+
   const productsToInsert = [];
   
   for (const design of designs) {
@@ -118,17 +113,23 @@ async function seedProducts() {
     }
   }
   
-  console.log(`Inserting ${productsToInsert.length} products...`);
+  console.log(`📦 Inserting ${productsToInsert.length} products...`);
   
   // Insert in batches to avoid overwhelming the database
   const batchSize = 50;
   for (let i = 0; i < productsToInsert.length; i += batchSize) {
     const batch = productsToInsert.slice(i, i + batchSize);
-    await db.insert(products).values(batch);
-    console.log(`Inserted batch ${Math.floor(i / batchSize) + 1} of ${Math.ceil(productsToInsert.length / batchSize)}`);
+    await db.insert(productsTable).values(batch);
+    const batchNum = Math.floor(i / batchSize) + 1;
+    const totalBatches = Math.ceil(productsToInsert.length / batchSize);
+    console.log(`✅ Batch ${batchNum}/${totalBatches} inserted`);
   }
   
-  console.log('Product seeding complete!');
+  console.log('🎉 Product seeding complete!');
+  console.log(`📊 Total products created: ${productsToInsert.length} (${designs.length} designs × ${productTypes.length} product types)`);
 }
 
-seedProducts().catch(console.error);
+seedProducts().catch(err => {
+  console.error('❌ Seeding failed:', err);
+  process.exit(1);
+});

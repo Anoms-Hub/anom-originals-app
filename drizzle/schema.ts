@@ -81,10 +81,10 @@ export type InsertCartItem = typeof cartItems.$inferInsert;
 export const products = mysqlTable('products', {
   id: varchar('id', { length: 36 }).primaryKey(),
   designName: varchar('design_name', { length: 255 }).notNull(),
-  designSlug: varchar('design_slug', { length: 255 }).notNull().unique(),
+  designSlug: varchar('design_slug', { length: 255 }).notNull(),
   description: text('description'),
   imageUrl: text('image_url').notNull(),
-  productType: mysqlEnum('product_type', ['tshirt', 'hoodie', 'mug', 'water_bottle', 'coffee_bottle', 'phone_case']).notNull(),
+  productType: mysqlEnum('product_type', ['tshirt', 'hoodie', 'mug', 'water_bottle', 'coffee_bottle', 'phone_case', 'sweatshirt', 'cap']).notNull(),
   price: decimal('price', { precision: 10, scale: 2 }).notNull(),
   printfulProductId: varchar('printful_product_id', { length: 255 }),
   printfulVariantId: varchar('printful_variant_id', { length: 255 }),

@@ -22,6 +22,20 @@
       "when": 1775534128833,
       "tag": "0002_tearful_silver_surfer",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1775534761717,
+      "tag": "0003_freezing_boomer",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1775534872019,
+      "tag": "0004_low_scorpion",
+      "breakpoints": true
     }
   ]
 }

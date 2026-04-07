@@ -21,6 +21,8 @@
 - [x] Gallery filtering by category
 - [x] Lightbox modal for viewing full-size images
 - [x] Gallery navigation link in header
+- [x] Social media preview meta tags (Facebook, Reddit, LinkedIn, YouTube)
+- [x] Social media preview image created and optimized
 - [ ] Upload actual gallery images to CDN (currently using placeholder images)
 
 ## Planned Features

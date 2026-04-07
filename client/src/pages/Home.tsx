@@ -339,58 +339,58 @@ export default function Home() {
               </form>
             </Card>
 
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-sm text-muted-foreground mb-3 font-display">SHARE</p>
+            <div className="mt-12 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+              <div className="flex flex-col items-center">
+                <p className="text-xs md:text-sm text-muted-foreground mb-3 font-display">SHARE</p>
                 <div className="flex justify-center">
                   <ShareButtons variant="compact" />
                 </div>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-3 font-display">EMAIL</p>
+              <div className="flex flex-col items-center">
+                <p className="text-xs md:text-sm text-muted-foreground mb-3 font-display">EMAIL</p>
                 <a
                   href="mailto:helloanomoriginals@gmail.com"
-                  className="font-mono text-sm text-primary hover:glow-cyan transition break-all"
+                  className="font-mono text-xs md:text-sm text-primary hover:glow-cyan transition break-all"
                 >
                   helloanomoriginals@gmail.com
                 </a>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-3 font-display">FOLLOW</p>
-                <div className="flex gap-3 justify-center flex-wrap">
-                  <a href="https://www.facebook.com/anom247" target="_blank" rel="noopener noreferrer" className="text-primary hover:glow-cyan transition text-sm">
+              <div className="flex flex-col items-center">
+                <p className="text-xs md:text-sm text-muted-foreground mb-3 font-display">FOLLOW</p>
+                <div className="flex gap-2 md:gap-3 justify-center flex-wrap">
+                  <a href="https://www.facebook.com/anom247" target="_blank" rel="noopener noreferrer" className="text-primary hover:glow-cyan transition text-xs md:text-sm">
                     Facebook
                   </a>
-                  <a href="#" className="text-primary hover:text-secondary transition text-sm">
+                  <a href="#" className="text-primary hover:text-secondary transition text-xs md:text-sm">
                     Instagram
                   </a>
-                  <a href="https://www.youtube.com/@anomoriginals" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary transition text-sm">
+                  <a href="https://www.youtube.com/@anomoriginals" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary transition text-xs md:text-sm">
                     YouTube
                   </a>
                 </div>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-3 font-display">SHOP</p>
+              <div className="flex flex-col items-center">
+                <p className="text-xs md:text-sm text-muted-foreground mb-3 font-display">SHOP</p>
                 <a
                   href="https://anomoriginals.myspreadshop.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-sm text-primary hover:glow-magenta transition"
+                  className="font-mono text-xs md:text-sm text-primary hover:glow-magenta transition"
                 >
                   Spreadshop Store
                 </a>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-3 font-display">SUBSCRIBE</p>
-                <a
-                  href="https://anomoriginals.substack.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-sm text-primary hover:text-secondary transition"
-                >
-                  Substack Newsletter
-                </a>
-              </div>
+            </div>
+            <div className="mt-8 pt-6 border-t border-border text-center">
+              <p className="text-xs md:text-sm text-muted-foreground mb-3 font-display">SUBSCRIBE</p>
+              <a
+                href="https://anomoriginals.substack.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs md:text-sm text-primary hover:text-secondary transition"
+              >
+                Substack Newsletter
+              </a>
             </div>
           </div>
         </div>

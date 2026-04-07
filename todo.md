@@ -28,7 +28,7 @@
 - [x] E-commerce store with product listing and shopping cart
 - [x] Cash App payment integration
 - [x] Checkout page with 3-step flow (info, payment, confirmation)
-- [x] Printful API integration for automatic order fulfillment
+- [x] Printful API integration for automatic order fulfillment (API key configured and validated)
 - [x] Product database schema and order management
 - [x] Unit tests for Cash App payment handler (5 tests passing)
 - [ ] Upload actual gallery images to CDN (currently using placeholder images)

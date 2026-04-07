@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, ExternalLink, Heart } from "lucide-react";
 import { useState } from "react";
 import { getLoginUrl } from "@/const";
+import Gallery from "@/components/Gallery";
 
 /**
  * Design Philosophy: Cyberpunk Neon Maximalism
@@ -54,8 +55,8 @@ export default function Home() {
             <a href="#services" className="hidden sm:inline text-xs md:text-sm hover:text-primary transition">
               Services
             </a>
-            <a href="#portfolio" className="hidden sm:inline text-xs md:text-sm hover:text-primary transition">
-              Portfolio
+            <a href="#gallery" className="hidden sm:inline text-xs md:text-sm hover:text-primary transition">
+              Gallery
             </a>
             <a href="#contact" className="hidden sm:inline text-xs md:text-sm hover:text-primary transition">
               Contact
@@ -220,8 +221,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <Gallery />
+
       {/* Social Proof Section */}
-      <section id="portfolio" className="py-12 md:py-20 border-t border-border bg-card/30">
+      <section id="testimonials" className="py-12 md:py-20 border-t border-border bg-card/30">
         <div className="container px-4 md:px-6">
           <div className="mb-12 md:mb-16 text-center">
             <h2 className="font-display text-2xl md:text-4xl mb-3 md:mb-4 glow-magenta">COMMUNITY LOVE</h2>

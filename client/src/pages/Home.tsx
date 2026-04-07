@@ -133,17 +133,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Visual */}
-            <div className="animate-slide-in-right hidden lg:block">
-              <div className="relative h-96 flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-transparent rounded-lg neon-border animate-pulse-glow" />
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/brand-logo-neon-W6MihokBJoyzEdHvJgRytT.webp"
-                  alt="Anom Logo"
-                  className="h-48 w-48 animate-float"
-                />
-              </div>
-            </div>
+            {/* Right Visual - Hidden, moved to bottom right */}
+            <div className="hidden"></div>
           </div>
         </div>
       </section>
@@ -397,7 +388,15 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-6 md:py-8 bg-card/30">
+      <footer className="border-t border-border py-6 md:py-8 bg-card/30 relative">
+        {/* Logo in bottom right corner */}
+        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 opacity-20 hover:opacity-40 transition-opacity duration-300">
+          <img
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663404343710/8vpTXzdJWtzLJPMkvmwcBn/brand-logo-neon-W6MihokBJoyzEdHvJgRytT.webp"
+            alt="Anom Originals"
+            className="h-16 w-16 md:h-20 md:w-20 opacity-60"
+          />
+        </div>
         <div className="container px-4 md:px-6 text-center text-xs md:text-sm text-muted-foreground">
           <p>
             © 2026 Anom Originals. Crafted with{" "}

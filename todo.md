@@ -34,6 +34,7 @@
 - [x] Fixed Merch card link to point to /shop
 - [x] Changed "MERCHANDISE" to "MERCH" in services section
 - [x] Updated footer SHOP link from Spreadshop to internal /shop
+- [x] Moved Anom Originals logo to bottom right corner of footer (transparent, hover effect)
 - [ ] Upload actual gallery images to CDN (currently using placeholder images)
 - [ ] Upload actual product images to CDN (currently using neon mockups)
 

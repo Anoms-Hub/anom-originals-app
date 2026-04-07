@@ -37,6 +37,14 @@
 - [x] Positioned Anom Originals logo in top right corner of hero section (black background, hover effect)
 - [ ] Upload actual gallery images to CDN (currently using placeholder images)
 - [ ] Upload actual product images to CDN (currently using neon mockups)
+- [ ] Upload all 11 Spreadshop design images to CDN
+- [ ] Generate neon background images for gallery sections
+- [ ] Create product listings for all designs across 6 product types
+- [ ] Set competitive pricing for each product type
+- [ ] Integrate with Printful dropshipping API for fulfillment
+- [ ] Test order fulfillment workflow
+- [ ] Add products to shop page with gallery
+- [ ] Test checkout and payment flow with Printful
 
 ## Planned Features
 - [ ] Enable contact form backend (save to database, send email)

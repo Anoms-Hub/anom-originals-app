@@ -15,6 +15,13 @@
       "when": 1775527418496,
       "tag": "0001_large_luke_cage",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1775534128833,
+      "tag": "0002_tearful_silver_surfer",
+      "breakpoints": true
     }
   ]
 }

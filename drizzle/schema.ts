@@ -77,3 +77,23 @@ export type OrderItem = typeof orderItems.$inferSelect;
 export type InsertOrderItem = typeof orderItems.$inferInsert;
 export type CartItem = typeof cartItems.$inferSelect;
 export type InsertCartItem = typeof cartItems.$inferInsert;
+// Products table for design merchandise
+export const products = mysqlTable('products', {
+  id: varchar('id', { length: 36 }).primaryKey(),
+  designName: varchar('design_name', { length: 255 }).notNull(),
+  designSlug: varchar('design_slug', { length: 255 }).notNull().unique(),
+  description: text('description'),
+  imageUrl: text('image_url').notNull(),
+  productType: mysqlEnum('product_type', ['tshirt', 'hoodie', 'mug', 'water_bottle', 'coffee_bottle', 'phone_case']).notNull(),
+  price: decimal('price', { precision: 10, scale: 2 }).notNull(),
+  printfulProductId: varchar('printful_product_id', { length: 255 }),
+  printfulVariantId: varchar('printful_variant_id', { length: 255 }),
+  category: varchar('category', { length: 100 }),
+  tags: text('tags'),
+  isActive: int('is_active').default(1),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+});
+
+export type Product = typeof products.$inferSelect;
+export type InsertProduct = typeof products.$inferInsert;

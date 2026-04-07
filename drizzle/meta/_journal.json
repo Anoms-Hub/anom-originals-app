@@ -8,6 +8,13 @@
       "when": 1775003928955,
       "tag": "0000_common_gauntlet",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1775527418496,
+      "tag": "0001_large_luke_cage",
+      "breakpoints": true
     }
   ]
 }

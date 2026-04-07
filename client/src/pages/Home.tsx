@@ -7,6 +7,7 @@ import { Mail, ExternalLink, Heart } from "lucide-react";
 import { useState } from "react";
 import { getLoginUrl } from "@/const";
 import Gallery from "@/components/Gallery";
+import ShareButtons from "@/components/ShareButtons";
 
 /**
  * Design Philosophy: Cyberpunk Neon Maximalism
@@ -113,16 +114,22 @@ export default function Home() {
                 that transform your mood, personality, and story into vibrant visual experiences.
                 Welcome to Anom Originals—where creativity meets identity.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/80 neon-border text-sm md:text-base">
-                  Get Started
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-secondary text-secondary hover:bg-secondary/10 text-sm md:text-base"
-                >
-                  Learn More
-                </Button>
+              <div className="flex flex-col gap-4">
+                <div className="flex gap-4">
+                  <Button className="bg-primary text-primary-foreground hover:bg-primary/80 neon-border">
+                    Get Started
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="border-secondary text-secondary hover:bg-secondary/10"
+                  >
+                    Learn More
+                  </Button>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground">Share:</span>
+                  <ShareButtons variant="compact" />
+                </div>
               </div>
             </div>
 
@@ -333,6 +340,12 @@ export default function Home() {
             </Card>
 
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+              <div>
+                <p className="text-sm text-muted-foreground mb-3 font-display">SHARE</p>
+                <div className="flex justify-center">
+                  <ShareButtons variant="compact" />
+                </div>
+              </div>
               <div>
                 <p className="text-sm text-muted-foreground mb-3 font-display">EMAIL</p>
                 <a

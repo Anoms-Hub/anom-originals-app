@@ -23,6 +23,8 @@
 - [x] Gallery navigation link in header
 - [x] Social media preview meta tags (Facebook, Reddit, LinkedIn, YouTube)
 - [x] Social media preview image created and optimized
+- [x] Social media share buttons (Facebook, Twitter, LinkedIn, Reddit, Email)
+- [x] Share buttons in hero section and footer
 - [ ] Upload actual gallery images to CDN (currently using placeholder images)
 
 ## Planned Features
